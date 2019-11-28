@@ -139,7 +139,13 @@ $config = [
         ],
         'authClientCollection' => [
             'class' => 'humhub\modules\user\authclient\Collection',
-            'clients' => [],
+            'clients' => [
+                'globus' => [
+                    'class' => 'humhub\modules\user\authclient\Globus',
+                    'clientId' => 'eb2e85b7-5144-4707-8e9c-c04b9d0f73c6',
+                    'clientSecret' => 'q5UT1t3857FTNwhUaBF16fwGx+bpqmz7vE0prOoGF1U='
+                ]
+            ],
         ],
         'queue' => [
             'class' => 'humhub\modules\queue\driver\MySQL',
