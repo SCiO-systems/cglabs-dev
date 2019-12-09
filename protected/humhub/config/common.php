@@ -142,8 +142,16 @@ $config = [
             'clients' => [
                 'globus' => [
                     'class' => 'humhub\modules\user\authclient\Globus',
-                    'clientId' => 'eb2e85b7-5144-4707-8e9c-c04b9d0f73c6',
-                    'clientSecret' => 'q5UT1t3857FTNwhUaBF16fwGx+bpqmz7vE0prOoGF1U='
+                    'clientId' => '0ace0488-cb4d-4cc4-bb65-f011d74ac5bd',
+                    'clientSecret' => '3zeYAQfC4zdjWxgEI2fWXdwS+UdWhrQxdtsLXoXet50=',
+                    'returnUrl' => 'https://labs.scio.systems/index.php?r=user/auth/external&authclient=globus',
+                    'scope' => 'profile openid email'
+                ],
+                'google' => [
+                    'class' => 'humhub\modules\user\authclient\Google',
+                    'clientId' => '366769324008-1e280709oiin0vcs2tkf0mgifg1hn85q.apps.googleusercontent.com',
+                    'clientSecret' => 'xT6mKTn4eBNvp0PatKyVVofb',
+                    'returnUrl' => 'https://labs.scio.systems/index.php?r=user/auth/external&authclient=google'
                 ]
             ],
         ],

@@ -13,7 +13,7 @@ use Yii;
 /**
  * @inheritdoc
  */
-class Google extends \yii\authclient\clients\Google
+class Google extends \yii\authclient\clients\Google implements interfaces\ApprovalBypass
 {
 
     /**

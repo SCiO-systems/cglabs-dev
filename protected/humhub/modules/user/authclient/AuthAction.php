@@ -22,7 +22,7 @@ class AuthAction extends \yii\authclient\AuthAction
 
     /**
      * @inheritdoc
-     * 
+     *
      * @param StandaloneAuthClient $client
      * @return \yii\web\Response response instance.
      */

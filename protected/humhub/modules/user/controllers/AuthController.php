@@ -47,7 +47,7 @@ class AuthController extends Controller
             'external' => [
                 'class' => AuthAction::class,
                 'successCallback' => [$this, 'onAuthSuccess'],
-            ],
+            ]
         ];
     }
 
@@ -67,6 +67,7 @@ class AuthController extends Controller
      */
     public function actionLogin()
     {
+
         // If user is already logged in, redirect him to the dashboard
         if (!Yii::$app->user->isGuest) {
             return $this->goBack();
@@ -74,11 +75,12 @@ class AuthController extends Controller
 
         // Login Form Handling
         $login = new Login;
+        $login->load(Yii::$app->request->post());
         if ($login->load(Yii::$app->request->post()) && $login->validate()) {
             return $this->onAuthSuccess($login->authClient);
         }
 
-        // Self Invite 
+        // Self Invite
         $invite = new Invite();
         $invite->scenario = 'invite';
         if ($invite->load(Yii::$app->request->post()) && $invite->selfInvite()) {
@@ -98,7 +100,7 @@ class AuthController extends Controller
 
     /**
      * Handle successful authentication
-     * 
+     *
      * @param \yii\authclient\BaseClient $authClient
      * @return Response
      */
@@ -112,7 +114,7 @@ class AuthController extends Controller
             return $this->redirect(['/user/account/connected-accounts']);
         }
 
-        // Login existing user 
+        // Login existing user
         $user = AuthClientHelpers::getUserByAuthClient($authClient);
 
         if ($user !== null) {
@@ -159,7 +161,7 @@ class AuthController extends Controller
 
     /**
      * Login user
-     * 
+     *
      * @param User $user
      * @param \yii\authclient\BaseClient $authClient
      * @return Response the current response object
