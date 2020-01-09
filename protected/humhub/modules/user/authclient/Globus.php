@@ -9,7 +9,9 @@
 namespace humhub\modules\user\authclient;
 
 use yii\authclient\OAuth2;
-use yii;
+use yii\base\Exception;
+use yii\base\InvalidParamException;
+use yii\helpers\VarDumper;
 
 class Globus extends OAuth2 implements interfaces\ApprovalBypass
 {
@@ -51,6 +53,17 @@ class Globus extends OAuth2 implements interfaces\ApprovalBypass
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function applyOtherTokenToRequest($request, $accessToken,$scope)
+    {
+        $other_tokens = $accessToken->getParam('other_tokens');
+        $token = $this->getOtherToken($scope,$other_tokens);
+
+        $request->getHeaders()->set('Authorization', 'Bearer '. $token);
+    }
+
+    /**
      * @inheritdoc
      */
     protected function defaultNormalizeUserAttributeMap()
@@ -72,6 +85,26 @@ class Globus extends OAuth2 implements interfaces\ApprovalBypass
                 return $attributes['email'];
             }
         ];
+    }
+
+    private function getOtherToken($scope,$other_tokens)
+    {
+        foreach ($other_tokens as &$tokenparams) {
+            if(strcmp($tokenparams['scope'],$scope) == 0){
+                return $tokenparams['access_token'];
+            }
+        }
+
+        return 'no_scope_found';
+    }
+
+    public function sendRequest($request)
+    {
+        $response = $request->send();
+        if (!$response->getIsOk()) {
+            throw new Exception('Request failed with code: ' . $response->getStatusCode() . ', message: ' . $response->getContent());
+        }
+        return $response->getData();
     }
 
 }
