@@ -50,7 +50,7 @@
   background-color: @primary;
   top: 0;
   z-index: 1030;
-  color: white;
+  border-bottom: 1px solid @info;
   .nav > li > a:hover,
   .nav > .open > a {
     background-color: lighten(@primary, 10%);
@@ -62,7 +62,7 @@
       margin-left: 10px;
     }
     .dropdown-toggle {
-      padding: 10px 5px 8px;
+      padding: 10px 5px 1px;
       line-height: 1.1em;
       text-align: left;
       span {
@@ -164,7 +164,7 @@
       }
     }
   }
-  
+
   .dropdown-footer {
     margin: 10px 10px 5px;
   }
@@ -172,7 +172,7 @@
     color: white;
   }
   .caret {
-    border-top-color: @text-color-soft;
+    border-top-color: @default;
   }
   .btn-group > a {
     background-color: lighten(@primary, 5%);
@@ -223,7 +223,7 @@
 
 #topbar-second {
   top: 50px;
-  background-color: #fff;
+  background-color: #6d6e71;
   z-index: 1029;
   background-image: none;
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
@@ -233,7 +233,7 @@
   .dropdown-menu {
     padding-top: 0;
     padding-bottom: 0;
-
+      background-color: white;
     .divider {
       margin: 0;
     }
@@ -255,7 +255,7 @@
     form {
       margin: 10px;
     }
-    
+
     .search-reset {
       position: absolute;
       color: #BFBFBF;
@@ -277,6 +277,7 @@
     min-height: 50px;
     text-transform: uppercase;
     text-align: center;
+      color:@default;
     &:hover,
     &:active,
     &:focus {
@@ -287,12 +288,13 @@
     }
     i {
       font-size: 14px;
+        color: @default;
     }
     .caret {
-      border-top-color: @text-color-secondary;
+      border-top-color: @default
     }
   }
-    
+
   .nav > li.active > a {
     min-height: 47px;
   }
@@ -311,7 +313,7 @@
 
   .nav > li > a#space-menu {
     padding-right: 13px;
-    border-right: 1px solid #ededed;
+    border-right: 1px solid @info;
   }
   .nav > li > a#search-menu {
     padding-top: 15px;

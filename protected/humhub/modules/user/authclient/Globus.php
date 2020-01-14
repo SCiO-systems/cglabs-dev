@@ -61,6 +61,7 @@ class Globus extends OAuth2 implements interfaces\ApprovalBypass
         $token = $this->getOtherToken($scope,$other_tokens);
 
         $request->getHeaders()->set('Authorization', 'Bearer '. $token);
+
     }
 
     /**
