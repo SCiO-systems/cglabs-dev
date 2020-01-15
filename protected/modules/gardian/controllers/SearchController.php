@@ -22,9 +22,33 @@ class SearchController extends BaseController
 
     public function actionIndex()
     {
+        $keywords = Yii::$app->request->post('keywords');
+
+        //call gardian api
+
+        $datasets = array();
+
+        $datasets[] = "test_1";
+        $datasets[] = "test_2";
+
+        $publications = array();
+
+        $publications[] = "ptest_1";
+        $publications[] = "ptest_2";
+
+
+
         return $this->render('index', [
-            'contentContainer' => $this->contentContainer
+            'contentContainer' => $this->contentContainer,
+            'datasets' => $datasets,
+            'publications' => $publications
             ]
         );
+    }
+
+    public function actionDownload($identifier){
+
+
+
     }
 }
