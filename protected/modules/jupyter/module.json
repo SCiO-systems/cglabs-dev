@@ -1,0 +1,10 @@
+{
+    "id": "jupyter",
+    "name": "Jupyter Connector",
+    "description": "",
+    "keywords": ["jupyter", "analytics", "share"],
+    "version": "0.3",
+    "humhub": {
+        "minVersion": "1.2.2"
+    }
+}
