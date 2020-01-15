@@ -1,0 +1,10 @@
+{
+    "id": "gardian",
+    "name": "GARDIAN Connector",
+    "description": "",
+    "keywords": ["gardian", "analytics", "share"],
+    "version": "0.3",
+    "humhub": {
+        "minVersion": "1.2.2"
+    }
+}

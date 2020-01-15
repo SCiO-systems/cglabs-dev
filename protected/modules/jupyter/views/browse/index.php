@@ -1,9 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use humhub\modules\globusfiles\widgets\FolderView;
-use humhub\modules\globusfiles\widgets\FileListContextMenu;
+use yii\helpers\Url;
 use humhub\widgets\Button;
+
 
 /* @var $contentContainer humhub\components\View */
 
@@ -32,9 +32,12 @@ $token["access_token"] = $accessToken->getToken();
 $token["other_tokens"] = $accessToken->getParam('other_tokens');
 $otherTokens = \yii\helpers\Json::encode($token);
 
+$username = Yii::$app->user->identity->username;
+$url = Url::toRoute('/u/'.$username.'/jupyter/browse/jupyter');
+
 ?>
 
-<?= Html::beginForm(null, null, ['data-target' => '#globalModal', 'id' => 'jupyter-form']); ?>
+<?= Html::beginForm($url, "POST", ['data-target' => '#globalModal', 'id' => 'jupyter-form']); ?>
 <div id="jupyter-container" class="panel panel-default jupyter-content">
 
     <div class="panel-body">
@@ -42,8 +45,10 @@ $otherTokens = \yii\helpers\Json::encode($token);
         <p>JupyterLab is a next-generation web-based user interface for Project Jupyter. JupyterLab enables you to work with documents and activities such as Jupyter notebooks, text editors, terminals, and custom components in a flexible, integrated, and extensible manner.</p>
 
         <?=
-        Button::primary('Connect to GARDIAN\'s Jupyter Lab')->icon('fa fa-plug')->cssClass('btn-success')
-            ->link($otherTokens);
+        Button::primary('Connect to GARDIAN\'s Jupyter Lab')
+            ->icon('fa fa-plug')
+            ->cssClass('btn btn-info')
+            ->submit();
         ?>
 
     </div>

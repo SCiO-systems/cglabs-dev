@@ -27,4 +27,14 @@ class BrowseController extends BaseController
             ]
         );
     }
+
+    public function actionJupyter()
+    {
+        $guid = Yii::$app->user->getGuid();
+        $authClient = Yii::$app->user->getCurrentAuthClient();
+        $username = $authClient->getUserAttributes()['preferred_username'];
+        $username_pieces = explode("@",$username);
+
+        $this->redirect('https://labs.scio.systems:8000/user/'.$username_pieces[0].'/lab?guid='.$guid);
+    }
 }
