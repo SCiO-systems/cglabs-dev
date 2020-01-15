@@ -1,0 +1,10 @@
+{
+    "id": "globusfiles",
+    "name": "Globus File System Management",
+    "description": "",
+    "keywords": ["globus", "files", "share"],
+    "version": "0.3",
+    "humhub": {
+        "minVersion": "1.2.2"
+    }
+}
