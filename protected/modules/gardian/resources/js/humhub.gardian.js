@@ -1,9 +1,11 @@
 humhub.module('gardian', function (module, require, $) {
 
 
-    $('#download_dataset').on('click',function(e){
+    $('body').on('click','#download_dataset',function(e){
 
         console.log("OK");
+
+        $('#loader').show();
 
         var datasets = [];
         $.each($("input[name='selection[]']:checked"), function(){
@@ -14,7 +16,11 @@ humhub.module('gardian', function (module, require, $) {
             dataType: 'json',
             data: {datasets: datasets},
             success: function(data) {
+                $('#loader').hide();
             },
+            error: function (data) {
+                $('#loader').hide();
+            }
         });
 
     });

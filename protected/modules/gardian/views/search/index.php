@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use humhub\widgets\Button;
+use yii\helpers\Url;
 
 /* @var $contentContainer humhub\components\View */
 /* @var $datasets  yii\data\ArrayDataProvider; */
@@ -58,6 +59,7 @@ $this->registerJsConfig('gardian', [
     </div>
     </div>
     <?php if ($keywords): ?>
+    <div id="loader" style="display: none;"><img src="<?= Url::to('@web/static/img/loading.gif') ?>" alt="Loading"/></div>
     <div class="panel panel-default">
         <div class="panel-heading">
             <strong>Search Results</strong>
