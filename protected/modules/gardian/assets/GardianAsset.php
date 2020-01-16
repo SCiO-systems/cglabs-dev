@@ -16,7 +16,7 @@ class GardianAsset extends AssetBundle
     public $publishOptions = [
         'forceCopy' => true
     ];
-    public $sourcePath = '@globusfiles/resources';
+    public $sourcePath = '@gardian/resources';
     public $jsOptions = ['position' => \yii\web\View::POS_END];
     public $css = ['css/humhub.gardian.css'];
     public $js = ['js/humhub.gardian.js'];

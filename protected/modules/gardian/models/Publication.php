@@ -2,35 +2,45 @@
 /**
  * Created by IntelliJ IDEA.
  * User: SOTIRIS SON
- * Date: 15/1/2020
- * Time: 15:03
+ * Date: 16/1/2020
+ * Time: 17:04
  */
 
 namespace humhub\modules\gardian\models;
 
-class Dataset
+
+class Publication
 {
     public $accessibility;
     public $title;
     public $publicationYear;
     public $authors;
     public $contentProvider;
-    public $files;
     public $summary;
-    public $license;
     public $citation;
     public $doi;
     public $quantumId;
 
-    function __construct($accessibility,$title,$publicationYear,$authors,$contentProvider,$files,$summary,$license,$citation,$doi,$quantumId) {
+    /**
+     * Publication constructor.
+     * @param $accessibility
+     * @param $title
+     * @param $publicationYear
+     * @param $authors
+     * @param $contentProvider
+     * @param $summary
+     * @param $citation
+     * @param $doi
+     * @param $quantumId
+     */
+    public function __construct($accessibility, $title, $publicationYear, $authors, $contentProvider, $summary, $citation, $doi, $quantumId)
+    {
         $this->accessibility = $accessibility;
         $this->title = $title;
         $this->publicationYear = $publicationYear;
         $this->authors = $authors;
         $this->contentProvider = $contentProvider;
-        $this->files = $files;
         $this->summary = $summary;
-        $this->license = $license;
         $this->citation = $citation;
         $this->doi = $doi;
         $this->quantumId = $quantumId;
@@ -119,22 +129,6 @@ class Dataset
     /**
      * @return mixed
      */
-    public function getFiles()
-    {
-        return $this->files;
-    }
-
-    /**
-     * @param mixed $files
-     */
-    public function setFiles($files)
-    {
-        $this->files = $files;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getSummary()
     {
         return $this->summary;
@@ -146,22 +140,6 @@ class Dataset
     public function setSummary($summary)
     {
         $this->summary = $summary;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLicense()
-    {
-        return $this->license;
-    }
-
-    /**
-     * @param mixed $license
-     */
-    public function setLicense($license)
-    {
-        $this->license = $license;
     }
 
     /**
@@ -211,4 +189,7 @@ class Dataset
     {
         $this->quantumId = $quantumId;
     }
+
+
+
 }

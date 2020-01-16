@@ -16,7 +16,7 @@ class Events
     {
         if ($event->sender->space !== null && $event->sender->space->isModuleEnabled('jupyter')) {
             $event->sender->addItem([
-                'label' => 'Jupyter',
+                'label' => 'Analytics',
                 'group' => 'modules',
                 'url' => $event->sender->space->createUrl('/jupyter/browse/'),
                 'icon' => '<i class="fa fa-files-o"></i>',
@@ -29,7 +29,7 @@ class Events
     {
         if ($event->sender->user !== null && $event->sender->user->isModuleEnabled('jupyter')) {
             $event->sender->addItem([
-                'label' => 'Jupyter',
+                'label' => 'Analytics',
                 'url' => $event->sender->user->createUrl('/jupyter/browse'),
                 'icon' => '<i class="fa fa-flask"></i>',
                 'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'jupyter')

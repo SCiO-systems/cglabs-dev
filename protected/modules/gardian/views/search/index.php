@@ -1,16 +1,15 @@
 <?php
 
 use yii\helpers\Html;
-use humhub\modules\globusfiles\widgets\FolderView;
-use humhub\modules\globusfiles\widgets\FileListContextMenu;
+use yii\grid\GridView;
 use humhub\widgets\Button;
 
 /* @var $contentContainer humhub\components\View */
-/* @var $datasets[] string */
-/* @var $publications[] string */
+/* @var $datasets  yii\data\ArrayDataProvider; */
+/* @var $publications yii\data\ArrayDataProvider; */
 
 $bundle = \humhub\modules\gardian\assets\GardianAsset::register($this);
-
+$username = $username = Yii::$app->user->identity->username;
 $this->registerJsConfig('gardian', [
     'text' => [
         'confirm.delete' => 'Do you really want to delete this {number} item(s) with all subcontent?',
@@ -32,12 +31,22 @@ $this->registerJsConfig('gardian', [
 <div id="gardian-container" class="panel panel-default gardian-content">
     <div class="panel-body">
         <div id="contentForm_message" class="focusMenu">
-            <?=
-            Html::textInput(
-                "keywords",
-                "",
-                ['data-ui-markdown' => "true", "class" => "form-control humhub-ui-richtext"])
-            ?>
+            <?php if ($keywords): ?>
+                <?=
+                    Html::textInput(
+                    "keywords",
+                    $keywords,
+                    ['data-ui-markdown' => "true", "class" => "form-control humhub-ui-richtext"])
+                ?>
+            <?php endif; ?>
+            <?php if (!$keywords): ?>
+                <?=
+                Html::textInput(
+                    "keywords",
+                    $keywords,
+                    ['data-ui-markdown' => "true", "class" => "form-control humhub-ui-richtext"])
+                ?>
+            <?php endif; ?>
         </div>
         <hr>
         <?=
@@ -48,6 +57,7 @@ $this->registerJsConfig('gardian', [
         ?>
     </div>
     </div>
+    <?php if ($keywords): ?>
     <div class="panel panel-default">
         <div class="panel-heading">
             <strong>Search Results</strong>
@@ -63,31 +73,129 @@ $this->registerJsConfig('gardian', [
             </div>
         </div>
         <div class="tab-content">
-            <div class="tab-pane active" id="datasets">
-                <?php foreach ($datasets as $dataset): ?>
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div class="media">
-                                    <?= $dataset; ?>
-                                </div>
-                            </div>
-                        </div>
-                <?php endforeach; ?>
+            <div class="tab-pane active" id="datasets" style="padding: 5px">
+                <?= GridView::widget([
+                    'id' => 'datasets',
+                    'dataProvider' => $datasets,
+                    'showFooter' => TRUE,
+                    'layout' => '{summary}{items}<div align="center">{pager}</div>',
+                    'pager' => [
+                        'firstPageLabel' => 'First',
+                        'lastPageLabel' => 'Last',
+                    ],
+                    'columns' => [
+                        [
+                            'attribute' => 'publicationYear',
+                            'format' => 'raw',
+                            'value' => 'publicationYear',
+                            'label' => 'Year',
+                            'headerOptions' => ['style' => 'text-align: center']
+                        ],
+                        [
+                            'label' => 'Title',
+                            'attribute' => 'title',
+                            'format' => 'raw',
+                            'value' => function($data){
+                                $link = $data->contentProvider[0]->providerLink;
+                                $title = $data->title;
+                                return Html::a($title, $link,['target'=>'_blank']);
+                            },
+                            'headerOptions' => ['style' => 'text-align: center'],
+                            'contentOptions' => ['style' => 'padding:5px'],
+                        ],
+                        [
+                            'attribute' => 'authors',
+                            'format' => 'raw',
+                            'value' => 'authors',
+                            'label' => 'Authors',
+                            'headerOptions' => ['style' => 'text-align: center'],
+                            'contentOptions' => ['style' => 'padding:5px'],
+                        ],
+                        [
+                            'label' => 'License',
+                            'attribute' => 'license.image',
+                            'format' => 'raw',
+                            'value' => function($data){
+                                    $license = $data->license;
+                                    if(!empty($license)){
+                                        $image = $license->image;
+                                        $url = $license->url;
+                                        $term = $license->term;
+                                        $htmlImage = Html::img($image, ['alt'=>$term,'style'=>'width: 88px;height: 33px']);
+                                        return Html::a($htmlImage, $url,['target'=>'_blank']);
+                                    }else{
+                                        return "-";
+                                    }
+                            },
+                            'headerOptions' => ['style' => 'text-align: center'],
+                            'contentOptions' => ['style' => 'padding:5px'],
+                        ],
+                        [
+                            'class' => 'yii\grid\CheckboxColumn',
+                            'headerOptions' => ['style' => 'text-align: center; padding:5px'],
+                            'contentOptions' => ['style' => 'text-align: center; padding:5px'],
+                            'checkboxOptions' => function($data){
+                                $license = $data->license;
+                                if(!empty($license)){
+                                    $term = $license->term;
+                                    if(!empty($term)){
+                                        return ['value' => json_encode($data)];
+                                    }
+                                }
+                                return ['disabled' => true];
+                            },
+                            'footer' => '<button type="button" id="download_dataset" class="btn btn-info btn-primary" ><i class="fa fa  fa-floppy-o"></i> Save</button>',
+                            'footerOptions' => ['style' => 'border:none']
+
+                        ]
+                    ],
+                ]); ?>
             </div>
-            <div class="tab-pane" id="publications">
-                <?php foreach ($publications as $publications): ?>
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="media">
-                                <?= $publications; ?>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
+            <div class="tab-pane" id="publications" style="padding: 5px">
+                <?= GridView::widget([
+                    'id' => 'publications',
+                    'dataProvider' => $publications,
+                    'layout' => '{summary}{items}<div align="center">{pager}</div>',
+                    'pager' => [
+                        'firstPageLabel' => 'First',
+                        'lastPageLabel' => 'Last',
+                    ],
+                    'columns' => [
+                        [
+                            'attribute' => 'publicationYear',
+                            'format' => 'raw',
+                            'value' => 'publicationYear',
+                            'label' => 'Year',
+                            'headerOptions' => ['style' => 'text-align: center']
+                        ],
+                        [
+                            'label' => 'Title',
+                            'attribute' => 'title',
+                            'format' => 'raw',
+                            'value' => function($data){
+                                $link = $data->contentProvider[0]->providerLink;
+                                $title = $data->title;
+                                return Html::a($title, $link,['target'=>'_blank']);
+                            },
+                            'headerOptions' => ['style' => 'text-align: center'],
+                            'contentOptions' => ['style' => 'padding:5px'],
+                        ],
+                        [
+                            'attribute' => 'authors',
+                            'format' => 'raw',
+                            'value' => 'authors',
+                            'label' => 'Authors',
+                            'headerOptions' => ['style' => 'text-align: center'],
+                            'contentOptions' => ['style' => 'padding:5px'],
+                        ]
+                    ],
+                ]); ?>
             </div>
         </div>
     </div>
+    <?php endif; ?>
 <?= Html::endForm(); ?>
+
 
 
 
