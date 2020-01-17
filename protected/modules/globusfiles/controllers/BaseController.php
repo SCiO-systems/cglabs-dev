@@ -10,11 +10,11 @@ namespace humhub\modules\globusfiles\controllers;
 
 use humhub\modules\globusfiles\models\CurrentFolder;
 use humhub\modules\globusfiles\models\ParentFolder;
+use humhub\modules\user\authclient\AuthClientHelpers;
 use Yii;
 use humhub\modules\content\components\ContentContainerController;
 use yii\helpers\FileHelper;
-
-
+use yii\helpers\VarDumper;
 
 
 abstract class BaseController extends ContentContainerController
@@ -40,6 +40,12 @@ abstract class BaseController extends ContentContainerController
     public function activationEndpoint()
     {
         $authClient = Yii::$app->user->getCurrentAuthClient();
+
+        if($authClient == null){
+            $authClient = Yii::$app->authClientCollection->getClients()["globus"];
+            //VarDumper::dump();
+        }
+
         $accessToken = $authClient->getAccessToken();
 
         $other_tokens = $accessToken->getParam('other_tokens');
@@ -98,6 +104,11 @@ abstract class BaseController extends ContentContainerController
         $listingUrl = $this->baseUrl."/endpoint/".$labsEndpoint."/ls?path=".$globusRoot.'/'.$directory;
         $authClient = Yii::$app->user->getCurrentAuthClient();
 
+        if($authClient == null){
+            $authClient = Yii::$app->authClientCollection->getClients()["globus"];
+            //VarDumper::dump();
+        }
+
         $request = $authClient->createRequest()
             ->setMethod('GET')
             ->setUrl($listingUrl);
@@ -136,6 +147,11 @@ abstract class BaseController extends ContentContainerController
         $body = "{\n    \"DATA_TYPE\": \"mkdir\",\n    \"path\": \"".$fullPath."\"\n}";
 
         $authClient = Yii::$app->user->getCurrentAuthClient();
+        if($authClient == null){
+            $authClient = Yii::$app->authClientCollection->getClients()["globus"];
+            //VarDumper::dump();
+        }
+
         $accessToken = $authClient->getAccessToken();
 
         $other_tokens = $accessToken->getParam('other_tokens');
@@ -180,6 +196,11 @@ abstract class BaseController extends ContentContainerController
         $body = "{\n    \"DATA_TYPE\": \"rename\",\n    \"old_path\": \"".$oldPath."\",\n \"new_path\": \"".$newPath."\"\n}";
 
         $authClient = Yii::$app->user->getCurrentAuthClient();
+        if($authClient == null){
+            $authClient = Yii::$app->authClientCollection->getClients()["globus"];
+            //VarDumper::dump();
+        }
+
         $accessToken = $authClient->getAccessToken();
 
         $other_tokens = $accessToken->getParam('other_tokens');
@@ -226,6 +247,11 @@ abstract class BaseController extends ContentContainerController
         $body = "{\n    \"DATA_TYPE\": \"rename\",\n    \"old_path\": \"".$oldPath."\",\n \"new_path\": \"".$newPath."\"\n}";
 
         $authClient = Yii::$app->user->getCurrentAuthClient();
+        if($authClient == null){
+            $authClient = Yii::$app->authClientCollection->getClients()["globus"];
+            //VarDumper::dump();
+        }
+
         $accessToken = $authClient->getAccessToken();
 
         $other_tokens = $accessToken->getParam('other_tokens');
@@ -268,6 +294,10 @@ abstract class BaseController extends ContentContainerController
 
         $scope = 'urn:globus:auth:scope:transfer.api.globus.org:all';
         $authClient = Yii::$app->user->getCurrentAuthClient();
+
+        if($authClient == null){
+            $authClient = Yii::$app->authClientCollection->getClients()["globus"];
+        }
 
         //SUBMISSION ID
         $request = $authClient->createRequest()
@@ -337,6 +367,11 @@ abstract class BaseController extends ContentContainerController
 
         $scope = 'urn:globus:auth:scope:transfer.api.globus.org:all';
         $authClient = Yii::$app->user->getCurrentAuthClient();
+
+        if($authClient == null){
+            $authClient = Yii::$app->authClientCollection->getClients()["globus"];
+            //VarDumper::dump();
+        }
 
         //SUBMISSION ID
         $request = $authClient->createRequest()
@@ -436,6 +471,10 @@ abstract class BaseController extends ContentContainerController
 
         $scope = 'urn:globus:auth:scope:transfer.api.globus.org:all';
         $authClient = Yii::$app->user->getCurrentAuthClient();
+
+        if($authClient == null){
+            $authClient = Yii::$app->authClientCollection->getClients()["globus"];
+        }
 
         //SUBMISSION ID
         $request = $authClient->createRequest()

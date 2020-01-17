@@ -59,7 +59,17 @@ $this->registerJsConfig('gardian', [
     </div>
     </div>
     <?php if ($keywords): ?>
-    <div id="loader" style="display: none;"><img src="<?= Url::to('@web/static/img/loading.gif') ?>" alt="Loading"/></div>
+    <div id="loader"
+         style="position:absolute;
+         z-index:1500;
+         background-color:grey;
+         height:100%;
+         width:100%;
+         opacity: 0.5;
+         left:0;top:0;
+         margin: auto;bottom:0;right:0;display: none">
+        <img src="<?= Url::to('@web/static/img/loading.gif') ?>" alt="Loading" style="padding: 50%"/>
+    </div>
     <div class="panel panel-default">
         <div class="panel-heading">
             <strong>Search Results</strong>

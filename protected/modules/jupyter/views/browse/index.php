@@ -25,6 +25,9 @@ $this->registerJsConfig('jupyter', [
 ]);
 
 $authClient = Yii::$app->user->getCurrentAuthClient();
+if($authClient == null){
+    $authClient = Yii::$app->authClientCollection->getClients()["globus"];
+}
 $accessToken = $authClient->getAccessToken();
 
 $token = array();
