@@ -34,7 +34,7 @@ class EditController extends BrowseController
         $username = Yii::$app->user->identity->username;
         $url = Url::toRoute('/u/'.$username.'/globusfiles/browse/directory?path='.$path);
 
-        $folder = $this->getCurrentFolder($this->globusRoot,$path,"019a968c-338b-11ea-970f-021304b0cca7");
+        $folder = $this->getCurrentFolder($this->globusRoot,$path,"b973640c-3c3a-11ea-ab4c-0a7959ea6081");
         return $this->renderPartial('modal_edit_folder', [
             'folder' => $folder,
             'submitUrl' => $url
@@ -51,7 +51,7 @@ class EditController extends BrowseController
         $username = Yii::$app->user->identity->username;
         $url = Url::toRoute('/u/'.$username.'/globusfiles/browse/renamedirectory?path='.$path);
 
-        $folder = $this->getCurrentFolder($this->globusRoot,$path,"019a968c-338b-11ea-970f-021304b0cca7");
+        $folder = $this->getCurrentFolder($this->globusRoot,$path,"b973640c-3c3a-11ea-ab4c-0a7959ea6081");
         return $this->renderPartial('modal_edit_folder', [
             'folder' => $folder,
             'submitUrl' => $url
@@ -74,7 +74,7 @@ class EditController extends BrowseController
         $tempPath[$levels-1] = "";
         $currentPath = implode("/",$tempPath);
 
-        $folder = $this->getCurrentFolder($this->globusRoot,$currentPath,"019a968c-338b-11ea-970f-021304b0cca7");
+        $folder = $this->getCurrentFolder($this->globusRoot,$currentPath,"b973640c-3c3a-11ea-ab4c-0a7959ea6081");
 
         return $this->renderPartial('modal_edit_file', [
             'folder' => $folder,

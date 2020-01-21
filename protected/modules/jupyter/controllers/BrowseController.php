@@ -32,6 +32,11 @@ class BrowseController extends BaseController
     {
         $guid = Yii::$app->user->getGuid();
         $authClient = Yii::$app->user->getCurrentAuthClient();
+
+        if($authClient == null){
+            $authClient = Yii::$app->authClientCollection->getClients()["globus"];
+        }
+
         $username = $authClient->getUserAttributes()['preferred_username'];
         $username_pieces = explode("@",$username);
 

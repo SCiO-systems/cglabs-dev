@@ -98,7 +98,7 @@ abstract class BaseController extends ContentContainerController
             $extractedMetadata = $document["ExtractedMetadata"];
 
             $license = $this->translateLicense($extractedMetadata);
-            $citation = $document["Citation"];
+            //$citation = $document["Citation"];
 
             $doiElement = $document["DOI"];
             if(!empty($doiElement)){
@@ -106,7 +106,7 @@ abstract class BaseController extends ContentContainerController
             }else{
                 $doi = "";
             }
-            $result = new Dataset($accessibility,$title,$publicationYear,$authors,$contentProviders,$files,$summary,$license,$citation,$doi,$id);
+            $result = new Dataset($accessibility,$title,$publicationYear,$authors,$contentProviders,$files,$summary,$license,"",$doi,$id);
             $results[] = $result;
         }
         return $results;
@@ -128,14 +128,14 @@ abstract class BaseController extends ContentContainerController
             $contentProviders = $this->translateContentProvider($contentProvidersElement);
 
             $summary = $document["Summary"];
-            $citation = $document["Citation"];
+            //$citation = $document["Citation"];
             $doiElement = $document["DOI"];
             if(!empty($doiElement)){
                 $doi = $doiElement[0]["link"];
             }else{
                 $doi = "";
             }
-            $result = new Publication($accessibility,$title,$publicationYear,$authors,$contentProviders,$summary,$citation,$doi,$id);
+            $result = new Publication($accessibility,$title,$publicationYear,$authors,$contentProviders,$summary,"",$doi,$id);
             $results[] = $result;
         }
         return $results;

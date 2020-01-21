@@ -80,7 +80,12 @@ class Globus extends OAuth2 implements interfaces\ApprovalBypass
             'username' => 'displayName',
             'lastname' => function ($attributes) {
                 $parts = preg_split('/\s+/', $attributes['name']);
-                return $parts[1];
+                if(count($parts) <2){
+                    return "";
+                }else{
+                    return $parts[1];
+                }
+
             },
             'email' => function ($attributes) {
                 return $attributes['email'];

@@ -33,7 +33,7 @@ class BrowseController extends BaseController
             }
         }
 
-        $folder = $this->getCurrentFolder($this->globusRoot,$path,'019a968c-338b-11ea-970f-021304b0cca7');
+        $folder = $this->getCurrentFolder($this->globusRoot,$path,'b973640c-3c3a-11ea-ab4c-0a7959ea6081');
 
         return $this->render('index', [
             'folder' => $folder,
@@ -58,9 +58,9 @@ class BrowseController extends BaseController
         $files = Yii::$app->request->post('file');
         $label = Yii::$app->request->post('label');
 
-        $this->submitTransferTask($source_endpoint,$spath,$path,$folders,$files,$label,"019a968c-338b-11ea-970f-021304b0cca7",$this->globusRoot);
+        $this->submitTransferTask($source_endpoint,$spath,$path,$folders,$files,$label,"b973640c-3c3a-11ea-ab4c-0a7959ea6081",$this->globusRoot);
 
-        $folder = $this->getCurrentFolder($this->globusRoot,$path,"019a968c-338b-11ea-970f-021304b0cca7");
+        $folder = $this->getCurrentFolder($this->globusRoot,$path,"b973640c-3c3a-11ea-ab4c-0a7959ea6081");
 
         return $this->render('index', [
                 'folder' => $folder,
@@ -73,8 +73,8 @@ class BrowseController extends BaseController
     {
         $filename = Yii::$app->request->post('title');
         $fullPath = $path.'/'.$filename;
-        $this->createDirectory($this->globusRoot,$fullPath,"019a968c-338b-11ea-970f-021304b0cca7");
-        $folder = $this->getCurrentFolder($this->globusRoot,$path,"019a968c-338b-11ea-970f-021304b0cca7");
+        $this->createDirectory($this->globusRoot,$fullPath,"b973640c-3c3a-11ea-ab4c-0a7959ea6081");
+        $folder = $this->getCurrentFolder($this->globusRoot,$path,"b973640c-3c3a-11ea-ab4c-0a7959ea6081");
 
         return $this->render('index', [
                 'folder' => $folder,
@@ -94,8 +94,8 @@ class BrowseController extends BaseController
         $tempPath[$levels-1] = "";
         $currentPath = implode("/",$tempPath);
 
-        $this->renameDirectory($this->globusRoot,$oldPath,$newPath,"019a968c-338b-11ea-970f-021304b0cca7");
-        $folder = $this->getCurrentFolder($this->globusRoot,$currentPath,"019a968c-338b-11ea-970f-021304b0cca7");
+        $this->renameDirectory($this->globusRoot,$oldPath,$newPath,"b973640c-3c3a-11ea-ab4c-0a7959ea6081");
+        $folder = $this->getCurrentFolder($this->globusRoot,$currentPath,"b973640c-3c3a-11ea-ab4c-0a7959ea6081");
 
         return $this->render('index', [
                 'folder' => $folder,
@@ -115,8 +115,8 @@ class BrowseController extends BaseController
         $tempPath[$levels-1] = "";
         $currentPath = implode("/",$tempPath);
 
-        $this->renameFile($this->globusRoot,$path,$newPath,"019a968c-338b-11ea-970f-021304b0cca7");
-        $folder = $this->getCurrentFolder($this->globusRoot,$currentPath,"019a968c-338b-11ea-970f-021304b0cca7");
+        $this->renameFile($this->globusRoot,$path,$newPath,"b973640c-3c3a-11ea-ab4c-0a7959ea6081");
+        $folder = $this->getCurrentFolder($this->globusRoot,$currentPath,"b973640c-3c3a-11ea-ab4c-0a7959ea6081");
 
         //call base controller
 
@@ -135,7 +135,7 @@ class BrowseController extends BaseController
     {
         $selectedItems = Yii::$app->request->post('selection');
 
-        $this->delete($this->globusRoot,$selectedItems[0],"019a968c-338b-11ea-970f-021304b0cca7");
+        $this->delete($this->globusRoot,$selectedItems[0],"b973640c-3c3a-11ea-ab4c-0a7959ea6081");
 
         if (empty($path) == TRUE){
             $path = Yii::$app->user->getGuid();
@@ -156,7 +156,7 @@ class BrowseController extends BaseController
     {
         $destination_endpoint = Yii::$app->request->post('destination');
 
-        $source_endpoint = "019a968c-338b-11ea-970f-021304b0cca7";
+        $source_endpoint = "b973640c-3c3a-11ea-ab4c-0a7959ea6081";
         $spath = $this->globusRoot.$path;
         $folders = array();
         $files = array();

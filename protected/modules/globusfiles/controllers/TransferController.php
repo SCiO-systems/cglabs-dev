@@ -34,8 +34,6 @@ class TransferController extends BrowseController
         $username = Yii::$app->user->identity->username;
         $url = Url::toRoute('/u/'.$username.'/globusfiles/browse/transfer?path='.$path.'&type='.$type);
 
-        //$folder = $this->getCurrentFolder($path,"d22eadf0-c8bb-11e9-98e1-0a63aa6b37da");
-
         //initiate tranfer
         return $this->renderPartial('modal_tranfer_item', [
             'submitUrl' => $url

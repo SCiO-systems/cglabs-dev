@@ -70,6 +70,15 @@ $this->registerJsConfig('gardian', [
          margin: auto;bottom:0;right:0;display: none">
         <img src="<?= Url::to('@web/static/img/loading.gif') ?>" alt="Loading" style="padding: 50%"/>
     </div>
+
+    <div class="panel panel-default" id="download-results" style="display: none">
+        <div class="panel-heading">
+            <strong>Download Results</strong>
+            <div class="panel-body" id="download-content">
+
+            </div>
+        </div>
+    </div>
     <div class="panel panel-default">
         <div class="panel-heading">
             <strong>Search Results</strong>
@@ -84,6 +93,7 @@ $this->registerJsConfig('gardian', [
                 </ul>
             </div>
         </div>
+
         <div class="tab-content">
             <div class="tab-pane active" id="datasets" style="padding: 5px">
                 <?= GridView::widget([

@@ -46,6 +46,8 @@ class SearchController extends BaseController
             $keywords = "";
         }
 
+
+
         $datasetDataProvider = new ArrayDataProvider([
             'allModels' => $datasets,
             'pagination' => [
@@ -88,6 +90,7 @@ class SearchController extends BaseController
         $userPath = Yii::$app->user->getGuid();
         $userPath = '/home/data/'.$userPath;
 
+        $notAccessible = 'false';
         foreach ($datasets as $dataset)
         {
             $title = $this->normalizeString($dataset["title"]);
@@ -99,11 +102,19 @@ class SearchController extends BaseController
                     $filename = $file["filename"];
                     $downloadLink = $file["downloadLink"];
                     file_put_contents($userPath."/".$title."/".$filename, fopen($downloadLink, 'r'));
+                }else{
+                    $notAccessible = 'true';
                 }
             }
         }
 
-        echo Json::encode($datasets);
+        $username = Yii::$app->user->identity->username;
+        $result = array();
+        $result["notAccessible"] = $notAccessible;
+        $result["username"] = $username;
+
+
+        echo Json::encode($result);
     }
 
     public function normalizeString($string)

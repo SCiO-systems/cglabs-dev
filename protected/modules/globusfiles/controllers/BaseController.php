@@ -59,7 +59,7 @@ abstract class BaseController extends ContentContainerController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-           CURLOPT_URL => "https://transfer.api.globus.org/v0.10/endpoint/019a968c-338b-11ea-970f-021304b0cca7/activate",
+           CURLOPT_URL => "https://transfer.api.globus.org/v0.10/endpoint/b973640c-3c3a-11ea-ab4c-0a7959ea6081/activate",
            CURLOPT_RETURNTRANSFER => true,
            CURLOPT_ENCODING => "",
            CURLOPT_MAXREDIRS => 10,
