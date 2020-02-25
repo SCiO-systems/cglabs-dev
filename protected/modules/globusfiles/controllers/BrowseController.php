@@ -14,7 +14,7 @@ use yii\helpers\Url;
 
 class BrowseController extends BaseController
 {
-    public $globusRoot = '/home/data/';
+    public $globusRoot = '/opt/LabsSpace/';
 
     public function beforeAction($action)
     {
