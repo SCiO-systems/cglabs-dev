@@ -19,6 +19,14 @@ use yii\helpers\FileHelper;
 
 abstract class BaseController extends ContentContainerController
 {
+    public $globusRoot = '/opt/labsspace/';
 
+    public function createRootFolder($guid,$globusRoot){
+
+        $user_directory = $globusRoot.$guid;
+        if (file_exists($user_directory) != TRUE){
+            FileHelper::createDirectory($user_directory, $mode = 0777, $recursive = true);
+        }
+    }
 
 }

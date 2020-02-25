@@ -31,6 +31,9 @@ class BrowseController extends BaseController
     public function actionJupyter()
     {
         $guid = Yii::$app->user->getGuid();
+
+        $this->createRootFolder($guid,$this->globusRoot);
+
         $authClient = Yii::$app->user->getCurrentAuthClient();
 
         if($authClient == null){
