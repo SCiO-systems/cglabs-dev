@@ -88,14 +88,14 @@ class SearchController extends BaseController
 
         $datasets = Yii::$app->request->post('datasets');
         $userPath = Yii::$app->user->getGuid();
-        $userPath = '/home/data/'.$userPath;
+        $userPath = '/opt/labsspace/'.$userPath;
 
         $notAccessible = 'false';
         foreach ($datasets as $dataset)
         {
             $title = $this->normalizeString($dataset["title"]);
             $files = $dataset["files"];
-            FileHelper::createDirectory($userPath."/".$title, $mode = 0775, $recursive = true);
+            FileHelper::createDirectory($userPath."/".$title, $mode = 0777, $recursive = true);
             foreach ($files as $file){
                 $accessibility = $file["accessibility"];
                 if(strcmp($accessibility,'open')==0){

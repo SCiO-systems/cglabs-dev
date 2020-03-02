@@ -428,7 +428,14 @@ abstract class BaseController extends ContentContainerController
         $tranferUrl = $this->baseUrl."/transfer";
 
         $authClient = Yii::$app->user->getCurrentAuthClient();
+        if($authClient == null){
+            $authClient = Yii::$app->authClientCollection->getClients()["globus"];
+            //VarDumper::dump();
+        }
+
         $accessToken = $authClient->getAccessToken();
+
+
 
         $other_tokens = $accessToken->getParam('other_tokens');
         $scope = 'urn:globus:auth:scope:transfer.api.globus.org:all';

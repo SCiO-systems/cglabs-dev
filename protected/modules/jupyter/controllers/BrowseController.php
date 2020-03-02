@@ -45,6 +45,8 @@ class BrowseController extends BaseController
 
 
         $link = 'https://labs.scio.systems:8000/user/'.$username_pieces[0].'/lab?guid='.$guid;
+
+
         $this->redirect($link);
     }
 }
