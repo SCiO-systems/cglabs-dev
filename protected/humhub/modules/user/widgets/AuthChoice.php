@@ -147,24 +147,30 @@ class AuthChoice extends \yii\authclient\widgets\AuthChoice
         $extraCssClass = 'btn-sxm';
 
         foreach ($clients as $client) {
+            echo Yii::t('UserModule.views_auth_login', '<strong>Please</strong> sign in, using    ');
             $i++;
             if ($i == $this->maxShowClients + 1) {
                 // Add more button
-                echo Html::a('<i class="fa fa-angle-double-down" aria-hidden="true"></i>', '#', ['class' => 'btn btn-default pull-right btn-sxm', 'id' => 'btnAuthChoiceMore']);
+                echo Html::a('<i class="fa fa-angle-double-down" aria-hidden="true"></i>', '#', ['class' => 'btn btn-info pull-right', 'id' => 'btnAuthChoiceMore']);
 
                 // Div contains more auth clients
                 echo Html::beginTag('div', ['class' => 'authChoiceMore']);
                 $extraCssClass = 'btn-sm'; // further buttons small
             }
-            $this->clientLink($client, null, ['class' => $extraCssClass]);
+            $this->clientLink($client, null, ['class' => 'btn btn-info ']);
             echo "&nbsp;";
+
         }
 
         if ($i > $this->maxShowClients) {
             echo Html::endTag('div');
         }
         echo Html::endTag('div');
-        echo Html::tag('div', Html::tag('hr') . Html::tag('div', Yii::t('UserModule.base', 'or')), ['class' => 'or-container']);
+        //echo Html::tag('div', Html::tag('hr') . Html::tag('div', Yii::t('UserModule.base', 'or')), ['class' => 'or-container']);
+
+
+
+
     }
 
     /**

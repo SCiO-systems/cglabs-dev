@@ -1,0 +1,15 @@
+{
+    "id": "myspace",
+    "name": "My Space",
+    "description": "Module to handle custom UI stuff",
+    "keywords": ["myspace"],
+    "version": "1.0.6",
+    "humhub": {
+        "minVersion": "1.3.14"
+    },
+    "authors": [
+        {
+            "name": "Sotiris Konstantinidis"
+        }
+    ]
+}

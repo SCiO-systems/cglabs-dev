@@ -16,10 +16,10 @@ class Events
     {
         if ($event->sender->space !== null && $event->sender->space->isModuleEnabled('gardian')) {
             $event->sender->addItem([
-                'label' => 'Gardian',
+                'label' => 'Find Data',
                 'group' => 'modules',
                 'url' => $event->sender->space->createUrl('/gardian/search/'),
-                'icon' => '<i class="fa fa-files-o"></i>',
+                'icon' => '<i class="fa fa-search"></i>',
                 'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gardian')
             ]);
         }
@@ -29,7 +29,7 @@ class Events
     {
         if ($event->sender->user !== null && $event->sender->user->isModuleEnabled('gardian')) {
             $event->sender->addItem([
-                'label' => 'Gardian',
+                'label' => 'Find Data',
                 'url' => $event->sender->user->createUrl('/gardian/search'),
                 'icon' => '<i class="fa fa-search"></i>',
                 'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gardian')

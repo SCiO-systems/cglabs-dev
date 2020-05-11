@@ -36,7 +36,28 @@ $token["other_tokens"] = $accessToken->getParam('other_tokens');
 $otherTokens = \yii\helpers\Json::encode($token);
 
 $username = Yii::$app->user->identity->username;
-$url = Url::toRoute('/u/'.$username.'/jupyter/browse/jupyter');
+
+$guid = Yii::$app->user->getGuid();
+
+$space = $contentContainer;
+$className = $space::className();
+
+if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+    $sguid = $space->guid;
+    $spaceName = strtolower($space->getDisplayName());
+    $url = Url::toRoute('/s/'.$spaceName.'/jupyter/browse/jupyter');
+}else{
+    $sguid = '';
+    $url = Url::toRoute('/u/'.$username.'/jupyter/browse/jupyter');
+}
+
+$username = $authClient->getUserAttributes()['preferred_username'];
+$username_pieces = explode("@",$username);
+
+$link = 'https://labs.scio.systems:8000/user/'.$username_pieces[0].'/lab?guid='.$guid.'&sguid='.$sguid;
+//$link = 'https://labs.scio.systems:8000/user/'.$username_pieces[0].'/lab?guid='.$guid;
+
+
 
 ?>
 
@@ -70,12 +91,10 @@ $url = Url::toRoute('/u/'.$username.'/jupyter/browse/jupyter');
 
         <div align="center">
             <?=
-            Button::primary('Connect to GARDIAN\'s Jupyter Lab')
-                ->icon('fa fa-plug')
-                ->cssClass('btn btn-info')
-                ->submit();
-            ?>
+            Html::a('Connect to GARDIAN\'s Jupyter Lab', $link, ['target'=>'_blank','class'=>'btn btn-info btn-primary']); ?>
         </div>
+
+
 
     </div>
 </div>

@@ -3,12 +3,15 @@
 use yii\helpers\Html;
 
 /* @var $folder  \humhub\modules\globusfiles\models\CurrentFolder */
+/* @var $contentContainer \humhub\modules\content\components\ContentContainerActiveRecord */
 
 
 $visibilityIcon = 'fa-unlock-alt';
 $visibilityTitle = 'This folder is public.';
 $visibilityIcon = 'fa-unlock-alt' ;
 
+$guid = $contentContainer->guid;
+$displayName = $contentContainer->getDisplayName();
 ?>
 
 <div class="panel panel-default" style="margin-bottom:10px;">
@@ -17,8 +20,10 @@ $visibilityIcon = 'fa-unlock-alt' ;
             <?php foreach ($folder->getCrumb() as $parentFolder): ?>
                 <?php
                     $url = $parentFolder->url;
-                    $name = $parentFolder->name;
-
+                $name = $parentFolder->name;
+                    if(strcmp($guid,$name) == 0){
+                        $name = $displayName;
+                    }
                 ?>
                 <li>
                     <a href="<?= $url ?>">

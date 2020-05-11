@@ -30,17 +30,23 @@ use yii\helpers\Url;
         </p>
 
         <ul class="tour-list">
-            <li id="interface_entry" class="<?php if ($interface == 1) : ?>completed<?php endif; ?>">
+            <li>
+                <a href="https://labs.scio.systems/html/Draft_CGLabs_Manual.pdf" target="_blank">
+                    <i class="fa fa-play-circle-o"></i><?= Yii::t('TourModule.widgets_views_tourPanel', '<strong>CG Labs User Manual</strong>'); ?>
+                </a>
+            </li>
+
+            <li id="interface_entry">
                 <a href="<?php echo Url::to(['/dashboard/dashboard', 'tour' => true]); ?>" data-pjax-prevent>
                     <i class="fa fa-play-circle-o"></i><?= Yii::t('TourModule.widgets_views_tourPanel', '<strong>Guide:</strong> Overview'); ?>
                 </a>
             </li>
-            <li class="<?php if ($spaces == 1) : ?>completed<?php endif; ?>">
+            <li>
                 <a id="interface-tour-link" href="<?php echo Url::to(['/tour/tour/start-space-tour']); ?>" data-pjax-prevent>
                     <i class="fa fa-play-circle-o"></i><?php echo Yii::t('TourModule.widgets_views_tourPanel', '<strong>Guide:</strong> Spaces'); ?>
                 </a>
             </li>
-            <li class="<?php if ($profile == 1) : ?>completed<?php endif; ?>">
+            <li>
                 <a href="<?php echo Yii::$app->user->getIdentity()->createUrl('//user/profile', ['tour' => 'true']); ?>" data-pjax-prevent>
                     <i class="fa fa-play-circle-o"></i><?php echo Yii::t('TourModule.widgets_views_tourPanel', '<strong>Guide:</strong> User profile'); ?>
                 </a>

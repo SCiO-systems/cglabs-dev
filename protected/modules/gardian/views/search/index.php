@@ -128,7 +128,15 @@ $this->registerJsConfig('gardian', [
                         [
                             'attribute' => 'authors',
                             'format' => 'raw',
-                            'value' => 'authors',
+                            'value' => function($data){
+                                $authors = $data->authors;
+
+                                if(strlen($authors)>80){
+                                    return $authors = substr($authors,0,80)." ...";
+                                }else{
+                                    return $authors;
+                                }
+                            },
                             'label' => 'Authors',
                             'headerOptions' => ['style' => 'text-align: center'],
                             'contentOptions' => ['style' => 'padding:5px'],
@@ -205,7 +213,15 @@ $this->registerJsConfig('gardian', [
                         [
                             'attribute' => 'authors',
                             'format' => 'raw',
-                            'value' => 'authors',
+                            'value' => function($data){
+                                $authors = $data->authors;
+
+                                if(strlen($authors)>80){
+                                    return $authors = substr($authors,0,80)." ...";
+                                }else{
+                                    return $authors;
+                                }
+                            },
                             'label' => 'Authors',
                             'headerOptions' => ['style' => 'text-align: center'],
                             'contentOptions' => ['style' => 'padding:5px'],

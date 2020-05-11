@@ -27,14 +27,26 @@ class SearchController extends BaseController
     public function actionIndex()
     {
         $session = Yii::$app->session;
+
+        $space = $this->contentContainer;
+        $className = $space::className();
+
+        if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+            $spaceName = strtolower($space->getDisplayName());
+            $sessionKey = $spaceName.'skeywords';
+        }else{
+            $sessionKey = 'ukeywords';
+        }
+
+
         if(Yii::$app->request->post('keywords')){
             $keywords = Yii::$app->request->post('keywords');
             $indexResponseDatasets = $this->queryGardianAPI("dataset",$keywords);
             $indexResponsePublications = $this->queryGardianAPI("publication",$keywords);
             $datasets = $this->translateDataset($indexResponseDatasets);
             $publications = $this->translatePublication($indexResponsePublications);
-            $session->set('keywords', $keywords);
-        }elseif($session->has('keywords')){
+            $session->set($sessionKey, $keywords);
+        }elseif($session->has($sessionKey)){
             $keywords = $session->get('keywords');
             $indexResponseDatasets = $this->queryGardianAPI("dataset",$keywords);
             $indexResponsePublications = $this->queryGardianAPI("publication",$keywords);
@@ -50,26 +62,20 @@ class SearchController extends BaseController
 
         $datasetDataProvider = new ArrayDataProvider([
             'allModels' => $datasets,
-            'pagination' => [
-                'pageSize' => 5,
-            ],
             'sort' => [
                 'attributes' => [ 'title','publicationYear'],
                 'defaultOrder' => [
-                    'publicationYear' => SORT_ASC,
+                    'publicationYear' => SORT_DESC,
                 ]
             ],
         ]);
 
         $publicationDataProvider = new ArrayDataProvider([
             'allModels' => $publications,
-            'pagination' => [
-                'pageSize' => 5,
-            ],
             'sort' => [
                 'attributes' => [ 'title','publicationYear'],
                 'defaultOrder' => [
-                    'publicationYear' => SORT_ASC,
+                    'publicationYear' => SORT_DESC,
                 ]
             ],
         ]);
@@ -87,8 +93,19 @@ class SearchController extends BaseController
     public function actionDownload(){
 
         $datasets = Yii::$app->request->post('datasets');
-        $userPath = Yii::$app->user->getGuid();
-        $userPath = '/opt/labsspace/'.$userPath;
+
+
+        $space = $this->contentContainer;
+        $className = $space::className();
+
+        if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+            $guid = $space->guid;
+            $userPath = '/opt/labsspace/'.$guid;
+        }else{
+            $guid = Yii::$app->user->getGuid();
+            $userPath = '/opt/labsspace/'.$guid;
+        }
+
 
         $notAccessible = 'false';
         foreach ($datasets as $dataset)

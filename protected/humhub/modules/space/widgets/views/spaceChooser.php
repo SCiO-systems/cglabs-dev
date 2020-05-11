@@ -11,7 +11,7 @@ use yii\helpers\Html;
 
 SpaceChooserAsset::register($this);
 
-$noSpaceView = '<div class="no-space"><i class="fa fa-dot-circle-o"></i><br>' . Yii::t('SpaceModule.widgets_views_spaceChooser', 'My spaces') . '<b class="caret"></b></div>';
+$noSpaceView = '<div class="no-space"><i class="fa fa-dot-circle-o"></i><br>' . Yii::t('SpaceModule.widgets_views_spaceChooser', 'Group spaces') . '<b class="caret"></b></div>';
 
 $this->registerJsConfig('space.chooser', [
     'noSpace' => $noSpaceView,
@@ -49,7 +49,7 @@ $this->registerJsConfig('space.chooser', [
         <li>
             <form action="" class="dropdown-controls">
                 <div class="input-group">
-                    <input type="text" id="space-menu-search" class="form-control" autocomplete="off" 
+                    <input type="text" id="space-menu-search" class="form-control" autocomplete="off"
                            placeholder="<?= Yii::t('SpaceModule.widgets_views_spaceChooser', 'Search'); ?>"
                            title="<?= Yii::t('SpaceModule.widgets_views_spaceChooser', 'Search for spaces'); ?>">
                     <span id="space-directory-link" class="input-group-addon" >

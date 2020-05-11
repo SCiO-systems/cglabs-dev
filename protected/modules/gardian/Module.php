@@ -21,6 +21,7 @@ class Module extends ContentContainerModule
     {
         // This content container can be assigned to Spaces and User
         return [
+            Space::class,
             User::className()
         ];
     }

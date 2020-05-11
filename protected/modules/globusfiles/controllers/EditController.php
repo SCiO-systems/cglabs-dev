@@ -31,8 +31,16 @@ class EditController extends BrowseController
      */
     public function actionFolder($path)
     {
-        $username = Yii::$app->user->identity->username;
-        $url = Url::toRoute('/u/'.$username.'/globusfiles/browse/directory?path='.$path);
+        $space = $this->contentContainer;
+        $className = $space::className();
+
+        if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+            $spaceName = strtolower($space->getDisplayName());
+            $url = Url::toRoute('/s/'.$spaceName.'/globusfiles/browse/directory?path='.$path);
+        }else{
+            $username = Yii::$app->user->identity->username;
+            $url = Url::toRoute('/u/'.$username.'/globusfiles/browse/directory?path='.$path);
+        }
 
         $folder = $this->getCurrentFolder($this->globusRoot,$path,"88798b42-41da-11ea-9712-021304b0cca7");
         return $this->renderPartial('modal_edit_folder', [
@@ -48,8 +56,16 @@ class EditController extends BrowseController
      */
     public function actionRenamefolder($path)
     {
-        $username = Yii::$app->user->identity->username;
-        $url = Url::toRoute('/u/'.$username.'/globusfiles/browse/renamedirectory?path='.$path);
+        $space = $this->contentContainer;
+        $className = $space::className();
+
+        if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+            $spaceName = strtolower($space->getDisplayName());
+            $url = Url::toRoute('/s/'.$spaceName.'/globusfiles/browse/renamedirectory?path='.$path);
+        }else{
+            $username = Yii::$app->user->identity->username;
+            $url = Url::toRoute('/u/'.$username.'/globusfiles/browse/renamedirectory?path='.$path);
+        }
 
         $folder = $this->getCurrentFolder($this->globusRoot,$path,"88798b42-41da-11ea-9712-021304b0cca7");
         return $this->renderPartial('modal_edit_folder', [
@@ -65,9 +81,16 @@ class EditController extends BrowseController
      */
     public function actionFile($path)
     {
-        $username = Yii::$app->user->identity->username;
-        $url = Url::toRoute('/u/'.$username.'/globusfiles/browse/archive?path='.$path);
+        $space = $this->contentContainer;
+        $className = $space::className();
 
+        if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+            $spaceName = strtolower($space->getDisplayName());
+            $url = Url::toRoute('/s/'.$spaceName.'/globusfiles/browse/archive?path='.$path);
+        }else{
+            $username = Yii::$app->user->identity->username;
+            $url = Url::toRoute('/u/'.$username.'/globusfiles/browse/archive?path='.$path);
+        }
 
         $tempPath = explode("/",$path);
         $levels = count($tempPath);

@@ -27,7 +27,7 @@ abstract class BaseController extends ContentContainerController
     {
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://gardian.bigdata.cgiar.org/api/v1/getAccessToken.php?=",
+            CURLOPT_URL => "https://gardian.bigdata.cgiar.org/api/v2/getAccessToken.php?=",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -35,7 +35,7 @@ abstract class BaseController extends ContentContainerController
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => array('email' => 'sotiris@scio.systems','password' => 'Dexter-7','clientId' => 'dvsHuCF4iiD6aJTtdqtMp6V7ZlRHnHRD'),
+            CURLOPT_POSTFIELDS => array('email' => 'sotiris@scio.systems','password' => 'G)]qDYY9d{dZK[Fa','clientId' => 'lIzdujOxJyohwleZvsGSJWoCEw9pQBxQ'),
             CURLOPT_HTTPHEADER => array(
                 "Content-Type: multipart/form-data"
             ),
@@ -46,14 +46,14 @@ abstract class BaseController extends ContentContainerController
         return json_decode($response)->access_token;
     }
 
-    public function queryGardianAPI($resourceType,$keywords,$size = 10)
+    public function queryGardianAPI($resourceType,$keywords,$size = 100)
     {
         $access_token = $this->activateAPI();
 
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://gardian.bigdata.cgiar.org/api/v1/searchGARDIANbyKeyword.php",
+            CURLOPT_URL => "https://gardian.bigdata.cgiar.org/api/v2/searchGARDIANbyKeyword.php",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,

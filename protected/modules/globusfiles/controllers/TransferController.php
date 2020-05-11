@@ -31,8 +31,16 @@ class TransferController extends BrowseController
      */
     public function actionItem($path,$type)
     {
-        $username = Yii::$app->user->identity->username;
-        $url = Url::toRoute('/u/'.$username.'/globusfiles/browse/transfer?path='.$path.'&type='.$type);
+        $space = $this->contentContainer;
+        $className = $space::className();
+
+        if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+            $spaceName = strtolower($space->getDisplayName());
+            $url = Url::toRoute('/s/'.$spaceName.'/globusfiles/browse/transfer?path='.$path);
+        }else{
+            $username = Yii::$app->user->identity->username;
+            $url = Url::toRoute('/u/'.$username.'/globusfiles/browse/transfer?path='.$path);
+        }
 
         //initiate tranfer
         return $this->renderPartial('modal_tranfer_item', [

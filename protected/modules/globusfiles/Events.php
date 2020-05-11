@@ -16,10 +16,10 @@ class Events
     {
         if ($event->sender->space !== null && $event->sender->space->isModuleEnabled('globusfiles')) {
             $event->sender->addItem([
-                'label' => 'Globus',
+                'label' => 'Securely share data',
                 'group' => 'modules',
                 'url' => $event->sender->space->createUrl('/globusfiles/browse/'),
-                'icon' => '<i class="fa fa-files-o"></i>',
+                'icon' => '<i class="fa fa-folder-open"></i>',
                 'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'globusfiles')
             ]);
         }
@@ -29,7 +29,7 @@ class Events
     {
         if ($event->sender->user !== null && $event->sender->user->isModuleEnabled('globusfiles')) {
             $event->sender->addItem([
-                'label' => 'Globus',
+                'label' => 'Securely share data',
                 'url' => $event->sender->user->createUrl('/globusfiles/browse'),
                 'icon' => '<i class="fa fa-folder-open"></i>',
                 'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'globusfiles')

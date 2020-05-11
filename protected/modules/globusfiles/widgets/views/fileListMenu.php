@@ -26,7 +26,19 @@ $fileHandlers = array();
 $guid = Yii::$app->user->getGuid();
 $username = Yii::$app->user->identity->username;
 
-$redirectLink = "https://labs.scio.systems/index.php/u/".$username."/globusfiles/browse/upload";
+$className = $contentContainer::className();
+
+if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+    $guid = $contentContainer->guid;
+    $spaceName = strtolower($contentContainer->getDisplayName());
+    $redirectLink = "https://labs.scio.systems/index.php/s/".$spaceName."/globusfiles/browse/upload";
+}else{
+    $guid = Yii::$app->user->getGuid();
+    $username = Yii::$app->user->identity->username;
+    $redirectLink = "https://labs.scio.systems/index.php/u/".$username."/globusfiles/browse/upload";
+}
+
+
 $globusLink = "https://app.globus.org/file-manager?method=POST&label=GARDIAN LABS&action=".$redirectLink."&folderlimit=0&filelimit=1";
 
 ?>

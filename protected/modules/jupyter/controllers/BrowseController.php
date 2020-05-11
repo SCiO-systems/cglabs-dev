@@ -22,6 +22,19 @@ class BrowseController extends BaseController
 
     public function actionIndex()
     {
+
+        $space = $this->contentContainer;
+        $className = $space::className();
+
+        $guid = Yii::$app->user->getGuid();
+        if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+            $sguid = $space->guid;
+            $this->createRootFolder($sguid,$this->globusRoot);
+        }else{
+            $sguid = '';
+            $this->createRootFolder($guid,$this->globusRoot);
+        }
+
         return $this->render('index', [
             'contentContainer' => $this->contentContainer
             ]
@@ -30,9 +43,18 @@ class BrowseController extends BaseController
 
     public function actionJupyter()
     {
-        $guid = Yii::$app->user->getGuid();
+        $space = $this->contentContainer;
+        $className = $space::className();
 
-        $this->createRootFolder($guid,$this->globusRoot);
+        $guid = Yii::$app->user->getGuid();
+        if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+            $sguid = $space->guid;
+            $this->createRootFolder($sguid,$this->globusRoot);
+        }else{
+            $sguid = '';
+            $this->createRootFolder($guid,$this->globusRoot);
+        }
+
 
         $authClient = Yii::$app->user->getCurrentAuthClient();
 
@@ -44,7 +66,8 @@ class BrowseController extends BaseController
         $username_pieces = explode("@",$username);
 
 
-        $link = 'https://labs.scio.systems:8000/user/'.$username_pieces[0].'/lab?guid='.$guid;
+        //$link = 'https://labs.scio.systems:8000/user/'.$username_pieces[0].'/lab?guid='.$guid;
+        $link = 'https://labs.scio.systems:8000/user/'.$username_pieces[0].'/lab?guid='.$guid.'&sguid='.$sguid;
 
 
         $this->redirect($link);

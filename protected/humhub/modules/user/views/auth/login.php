@@ -10,15 +10,32 @@ $this->pageTitle = Yii::t('UserModule.views_auth_login', 'Login');
 ?>
 
 <div class="container" style="text-align: center;">
-    <?= humhub\widgets\SiteLogo::widget(['place' => 'login']); ?>
-    <br>
+    <div class="row">
+        <div class="col-md-10" style="padding-left: 150px;padding-right: 0px;">
+            <?= humhub\widgets\SiteLogo::widget(['place' => 'login']); ?>
+        </div>
+
+        <div class="col-md-2" style="float:right;padding-left: 0px;padding-right: 0px;">
+            <a class="btn btn-info" href="/html/about.html">About CG Labs</a>
+        </div>
+    </div>
+    <p style="color: #ffffff;padding-top:60px" ><strong>Frustrated at having your analytical workstream spread across multiple platforms?</strong></p>
+
+    <p style="color: #f7941d;padding-top:40px"><strong>Using Slack or a similar tool to collaborate with your team? Email/Dropbox/FTP etc. to exchange data while worrying about security?
+        GitHub to manage code? Jupyter or other analytics platform for data analysis?</strong>
+    </p>
+
+    <p style="color: #ffffff;padding-top:40px;padding-bottom:60px">
+        <strong>
+        Try Collaborative GARDIAN Labs – offering interlinked features to find and securely exchange data, collaborate, manage code, and analyze!
+        </strong>
+    </p>
+
 
     <div class="panel panel-default animated bounceIn" id="login-form"
-         style="max-width: 300px; margin: 0 auto 20px; text-align: left;">
+         style="width: 100%; margin: 0 auto 20px;">
 
-        <div class="panel-heading"><?= Yii::t('UserModule.views_auth_login', '<strong>Please</strong> sign in'); ?></div>
-
-        <div class="panel-body">
+        <div class="panel-heading">
 
             <?php if (Yii::$app->session->hasFlash('error')): ?>
                 <div class="alert alert-danger" role="alert">
@@ -36,29 +53,14 @@ $this->pageTitle = Yii::t('UserModule.views_auth_login', 'Login');
                 <?php endif; ?>
             <?php endif; ?>
 
-            <?php $form = ActiveForm::begin(['id' => 'account-login-form', 'enableClientValidation' => false]); ?>
-            <?= $form->field($model, 'username')->textInput(['id' => 'login_username', 'placeholder' => $model->getAttributeLabel('username'), 'aria-label' => $model->getAttributeLabel('username')])->label(false); ?>
-            <?= $form->field($model, 'password')->passwordInput(['id' => 'login_password', 'placeholder' => $model->getAttributeLabel('password'), 'aria-label' => $model->getAttributeLabel('password')])->label(false); ?>
-            <?= $form->field($model, 'rememberMe')->checkbox(); ?>
 
-            <hr>
-            <div class="row">
-                <div class="col-md-4">
-                    <?= CHtml::submitButton(Yii::t('UserModule.views_auth_login', 'Sign in'), ['id' => 'login-button', 'data-ui-loader' => "", 'class' => 'btn btn-large btn-primary']); ?>
-                </div>
-                <div class="col-md-8 text-right">
-                    <small>
-                        <a id="password-recovery-link" href="<?= Url::toRoute('/user/password-recovery'); ?>" data-pjax-prevent><br><?= Yii::t('UserModule.views_auth_login', 'Forgot your password?') ?></a>
-                    </small>
-                </div>
-            </div>
 
-            <?php ActiveForm::end(); ?>
+
         </div>
 
     </div>
 
-    <br>
+
 
     <?php if ($canRegister) : ?>
         <div id="register-form"
@@ -91,7 +93,11 @@ $this->pageTitle = Yii::t('UserModule.views_auth_login', 'Login');
 
     <?php endif; ?>
 
+
     <?= humhub\widgets\LanguageChooser::widget(); ?>
+
+
+
 </div>
 
 <script type="text/javascript">

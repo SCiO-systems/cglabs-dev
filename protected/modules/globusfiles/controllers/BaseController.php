@@ -8,6 +8,7 @@
 
 namespace humhub\modules\globusfiles\controllers;
 
+use humhub\components\Event;
 use humhub\modules\globusfiles\models\CurrentFolder;
 use humhub\modules\globusfiles\models\ParentFolder;
 use humhub\modules\user\authclient\AuthClientHelpers;
@@ -15,6 +16,7 @@ use Yii;
 use humhub\modules\content\components\ContentContainerController;
 use yii\helpers\FileHelper;
 use yii\helpers\VarDumper;
+
 
 
 abstract class BaseController extends ContentContainerController
@@ -77,7 +79,6 @@ abstract class BaseController extends ContentContainerController
     }
 
     public function createRootFolder($guid,$globusRoot){
-
         $user_directory = $globusRoot.$guid;
         if (file_exists($user_directory) != TRUE){
             FileHelper::createDirectory($user_directory, $mode = 0777, $recursive = true);
@@ -91,8 +92,22 @@ abstract class BaseController extends ContentContainerController
      */
     public function getCurrentFolder($globusRoot,$directory = '',$labsEndpoint,$previousCurrentFolder = NULL)
     {
+
+        $space = $this->contentContainer;
+        $className = $space::className();
+
+        if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+            $guid = $space->guid;
+            $spaceName = strtolower($space->getDisplayName());
+            $url = '/index.php/s/'.$spaceName.'/globusfiles/browse?path=';
+        }else{
+            $guid = Yii::$app->user->getGuid();
+            $username = Yii::$app->user->identity->username;
+            $url = '/index.php/u/'.$username.'/globusfiles/browse?path=';
+        }
+
+
         $this->currentPath = $globusRoot."/".$directory;
-        $guid = Yii::$app->user->getGuid();
 
         $this->createRootFolder($guid,$globusRoot);
         $this->activationEndpoint();
@@ -114,8 +129,7 @@ abstract class BaseController extends ContentContainerController
         $response = $authClient->sendRequest($request);
 
         $parentFolder = array();
-        $username = Yii::$app->user->identity->username;
-        $url = '/index.php/u/'.$username.'/globusfiles/browse?path=';
+
         if(strcmp($directory,$guid)==0){
             $parentFolderInstance = new ParentFolder($guid,$url);
             $parentFolder[] = $parentFolderInstance;
@@ -128,7 +142,7 @@ abstract class BaseController extends ContentContainerController
             }
         }
 
-        $currentFolder = new CurrentFolder($response["DATA"],$id,$parentFolder);
+        $currentFolder = new CurrentFolder($response["DATA"],$id,$parentFolder,$space);
 
         return $currentFolder;
     }

@@ -41,7 +41,7 @@ class AccountTopMenu extends BaseMenu
 
         $user = Yii::$app->user->getIdentity();
         $this->addItem([
-            'label' => Yii::t('base', 'My profile'),
+            'label' => Yii::t('base', 'My Space'),
             'icon' => '<i class="fa fa-user"></i>',
             'url' => $user->createUrl('/user/profile/home'),
             'sortOrder' => 100,

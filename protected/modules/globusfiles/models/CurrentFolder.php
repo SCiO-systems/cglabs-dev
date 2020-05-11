@@ -25,11 +25,12 @@ class CurrentFolder
     public $isRoot;
     public $backUrl;
 
-    function __construct($files,$id,$parentFolder) {
+    function __construct($files,$id,$parentFolder,$contentContainer) {
         $this->id = $id;
         $this->fileList = array();
         $this->folderList = array();
         $this->parentFolder = $parentFolder;
+        $this->contentContainer = $contentContainer;
 
         if(count($this->parentFolder)==1){
             $this->isRoot = TRUE;
@@ -47,11 +48,11 @@ class CurrentFolder
 
             if(strcmp($itemType,"dir")==0){
                 $ext = "";
-                $item = new GlobusItem($itemName,$itemType,$updatedAt,$size,$ext,$id);
+                $item = new GlobusItem($itemName,$itemType,$updatedAt,$size,$ext,$id,$contentContainer);
                 $this->fileList[] = $item;
             }elseif(strcmp($itemType,"file")==0){
                 $ext = pathinfo($itemName, PATHINFO_EXTENSION);
-                $item = new GlobusItem($itemName,$itemType,$updatedAt,$size,$ext,$id);
+                $item = new GlobusItem($itemName,$itemType,$updatedAt,$size,$ext,$id,$contentContainer);
                 $this->folderList[] = $item;
             }
         }
@@ -75,8 +76,19 @@ class CurrentFolder
 
     public function createUrl($route = null, $params = [], $scheme = false)
     {
-        $username = Yii::$app->user->identity->username;
-        $url = Url::toRoute('/u/'.$username.'/globusfiles/delete?path='.$this->id);
+
+        $space = $this->contentContainer;
+        $className = $space::className();
+
+        if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+            $spaceName = strtolower($space->getDisplayName());
+            $url = Url::toRoute('/s/'.$spaceName.'/globusfiles/delete?path='.$this->id);
+        }else{
+            $username = Yii::$app->user->identity->username;
+            $url = Url::toRoute('/u/'.$username.'/globusfiles/delete?path='.$this->id);
+        }
+
+
         return $url;
     }
 

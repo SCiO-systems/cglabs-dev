@@ -26,7 +26,14 @@ class BrowseController extends BaseController
     {
 
         if (empty($path) == TRUE){
-            $path = Yii::$app->user->getGuid();
+            $space = $this->contentContainer;
+            $className = $space::className();
+
+            if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+                $path = $space->guid;
+            }else{
+                $path = Yii::$app->user->getGuid();
+            }
         }else{
             if(strcmp($path[0],"/")==0){
                 $path = substr($path,1);
@@ -45,7 +52,14 @@ class BrowseController extends BaseController
     public function actionUpload($path = "")
     {
         if (empty($path) == TRUE){
-            $path = Yii::$app->user->getGuid();
+            $space = $this->contentContainer;
+            $className = $space::className();
+
+            if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+                $path = $space->guid;
+            }else{
+                $path = Yii::$app->user->getGuid();
+            }
         }else{
             if(strcmp($path[0],"/")==0){
                 $path = substr($path,1);
@@ -58,7 +72,9 @@ class BrowseController extends BaseController
         $files = Yii::$app->request->post('file');
         $label = Yii::$app->request->post('label');
 
+
         $this->submitTransferTask($source_endpoint,$spath,$path,$folders,$files,$label,"88798b42-41da-11ea-9712-021304b0cca7",$this->globusRoot);
+
 
         $folder = $this->getCurrentFolder($this->globusRoot,$path,"88798b42-41da-11ea-9712-021304b0cca7");
 

@@ -52,7 +52,7 @@ class GlobusItem
     public $path;
     public $fullPath;
 
-    function __construct($itemName,$itemType,$updatedAt,$size,$extension,$path) {
+    function __construct($itemName,$itemType,$updatedAt,$size,$extension,$path,$contentContainer) {
         $this->itemName = $itemName;
         $this->itemType = $itemType;
         $this->updatedAt = $updatedAt;
@@ -61,6 +61,7 @@ class GlobusItem
         $this->extension = $extension;
         $this->path = $path;
         $this->fullPath = $path.'/'.$itemName;
+        $this->contentContainer = $contentContainer;
     }
 
     function setItemName($itemName) {
@@ -103,8 +104,17 @@ class GlobusItem
     public function getLinkUrl()
     {
         if(strcmp($this->itemType,'dir')==0){
-            $username = Yii::$app->user->identity->username;
-            $url = Url::toRoute('/u/'.$username.'/globusfiles/browse?path='.$this->fullPath);
+            $space = $this->contentContainer;
+            $className = $space::className();
+
+            if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+                $spaceName = strtolower($space->getDisplayName());
+                $url = Url::toRoute('/s/'.$spaceName.'/globusfiles/browse?path='.$this->fullPath);
+            }else{
+                $username = Yii::$app->user->identity->username;
+                $url = Url::toRoute('/u/'.$username.'/globusfiles/browse?path='.$this->fullPath);
+            }
+
             return $url;
         }else{
             return "#";
@@ -146,33 +156,68 @@ class GlobusItem
     public function getEditUrl()
     {
         if(strcmp($this->itemType,'dir')==0){
-            $username = Yii::$app->user->identity->username;
-            $url = Url::toRoute('/u/'.$username.'/globusfiles/edit/renamefolder?path='.$this->fullPath);
+            $space = $this->contentContainer;
+            $className = $space::className();
+
+            if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+                $spaceName = strtolower($space->getDisplayName());
+                $url = Url::toRoute('/s/'.$spaceName.'/globusfiles/edit/renamefolder?path='.$this->fullPath);
+            }else{
+                $username = Yii::$app->user->identity->username;
+                $url = Url::toRoute('/u/'.$username.'/globusfiles/edit/renamefolder?path='.$this->fullPath);
+            }
+
             return $url;
         }elseif(strcmp($this->itemType,'file')==0){
-            $username = Yii::$app->user->identity->username;
-            $url = Url::toRoute('/u/'.$username.'/globusfiles/edit/file?path='.$this->fullPath);
+            $space = $this->contentContainer;
+            $className = $space::className();
+
+            if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+                $spaceName = strtolower($space->getDisplayName());
+                $url = Url::toRoute('/s/'.$spaceName.'/globusfiles/edit/file?path='.$this->fullPath);
+            }else{
+                $username = Yii::$app->user->identity->username;
+                $url = Url::toRoute('/u/'.$username.'/globusfiles/edit/file?path='.$this->fullPath);
+            }
             return $url;
         }
     }
 
     public function getDeleteUrl()
     {
-        $username = Yii::$app->user->identity->username;
-        $url = Url::toRoute('/u/'.$username.'/globusfiles/browse/delete?path='.$this->fullPath);
+        $space = $this->contentContainer;
+        $className = $space::className();
+
+        if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+            $spaceName = strtolower($space->getDisplayName());
+            $url = Url::toRoute('/s/'.$spaceName.'/globusfiles/browse/delete?path='.$this->fullPath);
+        }else{
+            $username = Yii::$app->user->identity->username;
+            $url = Url::toRoute('/u/'.$username.'/globusfiles/browse/delete?path='.$this->fullPath);
+        }
+
         return $url;
     }
 
     public function getMoveUrl()
     {
-        $username = Yii::$app->user->identity->username;
-
         if(strcmp($this->itemType,'dir')==0){
             $path = $this->fullPath."&type=dir";
         }elseif(strcmp($this->itemType,'file')==0){
             $path = $this->fullPath."&type=file";
         }
-        $url = Url::toRoute('/u/'.$username.'/globusfiles/transfer/item?path='.$path);
+
+        $space = $this->contentContainer;
+        $className = $space::className();
+
+        if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+            $spaceName = strtolower($space->getDisplayName());
+            $url = Url::toRoute('/s/'.$spaceName.'/globusfiles/transfer/item?path='.$path);
+        }else{
+            $username = Yii::$app->user->identity->username;
+            $url = Url::toRoute('/u/'.$username.'/globusfiles/transfer/item?path='.$path);
+        }
+
         return $url;
     }
 
