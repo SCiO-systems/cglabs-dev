@@ -97,7 +97,11 @@ abstract class BaseController extends ContentContainerController
         $className = $space::className();
 
         if(strcmp($className,'humhub\modules\space\models\Space') == 0){
-            $guid = $space->guid;
+            $guid = strtolower($space->getDisplayName());
+            $guid = str_replace(' ', 's', $guid);
+            $guid = str_replace('-', 's', $guid);
+            $guid = preg_replace('/[^A-Za-z0-9\-]/', 's', $guid);
+
             $spaceName = strtolower($space->getDisplayName());
             $url = '/index.php/s/'.$spaceName.'/globusfiles/browse?path=';
         }else{

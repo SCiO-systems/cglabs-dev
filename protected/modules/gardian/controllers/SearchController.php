@@ -99,7 +99,10 @@ class SearchController extends BaseController
         $className = $space::className();
 
         if(strcmp($className,'humhub\modules\space\models\Space') == 0){
-            $guid = $space->guid;
+            $spaceName = strtolower($space->getDisplayName());
+            $spaceName = str_replace(' ', 's', $spaceName);
+            $spaceName = str_replace('-', 's', $spaceName);
+            $guid = preg_replace('/[^A-Za-z0-9\-]/', 's', $spaceName);
             $userPath = '/opt/labsspace/'.$guid;
         }else{
             $guid = Yii::$app->user->getGuid();

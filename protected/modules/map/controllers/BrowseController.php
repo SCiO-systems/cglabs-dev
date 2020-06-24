@@ -6,7 +6,7 @@
  * Time: 17:01
  */
 
-namespace humhub\modules\jupyter\controllers;
+namespace humhub\modules\map\controllers;
 
 use Yii;
 use yii\helpers\VarDumper;

@@ -6,18 +6,18 @@
  * @license https://www.humhub.com/licences
  */
 
-namespace humhub\modules\jupyter\assets;
+namespace humhub\modules\map\assets;
 
 use yii\web\AssetBundle;
 
-class JupyterAsset extends AssetBundle
+class MapAsset extends AssetBundle
 {
 
     public $publishOptions = [
         'forceCopy' => true
     ];
-    public $sourcePath = '@jupyter/resources';
+    public $sourcePath = '@map/resources';
     public $jsOptions = ['position' => \yii\web\View::POS_END];
-    public $css = ['css/humhub.jupyter.css'];
-    public $js = ['js/humhub.jupyter.js'];
+    public $css = ['css/humhub.map.css'];
+    public $js = ['js/humhub.map.js'];
 }

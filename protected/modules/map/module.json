@@ -1,0 +1,10 @@
+{
+    "id": "map",
+    "name": "Geospatial Exploration",
+    "description": "",
+    "keywords": ["map", "analytics", "share"],
+    "version": "0.3",
+    "humhub": {
+        "minVersion": "1.2.2"
+    }
+}

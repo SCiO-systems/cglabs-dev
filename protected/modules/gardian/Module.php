@@ -17,6 +17,8 @@ use yii\helpers\VarDumper;
 
 class Module extends ContentContainerModule
 {
+    public $resourcesPath = 'resources';
+
     public function getContentContainerTypes()
     {
         // This content container can be assigned to Spaces and User

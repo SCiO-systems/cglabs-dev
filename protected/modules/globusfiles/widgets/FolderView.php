@@ -52,8 +52,19 @@ class FolderView extends JsWidget
      */
     public function getData()
     {
-        $username = Yii::$app->user->identity->username;
-        $delete_url = Url::toRoute('/u/'.$username.'/globusfiles/browse/delete');
+
+        $space = $this->contentContainer;
+        $className = $space::className();
+
+        if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+            $delete_url = Url::toRoute('/s/'.$space->getDisplayName().'/globusfiles/browse/delete');
+
+        }else{
+            $username = Yii::$app->user->identity->username;
+            $delete_url = Url::toRoute('/u/'.$username.'/globusfiles/browse/delete');
+
+        }
+
 
         return [
             'fid' => 'id',

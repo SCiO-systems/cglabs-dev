@@ -30,7 +30,11 @@ class BrowseController extends BaseController
             $className = $space::className();
 
             if(strcmp($className,'humhub\modules\space\models\Space') == 0){
-                $path = $space->guid;
+                $guid = strtolower($space->getDisplayName());
+                $guid = str_replace(' ', 's', $guid);
+                $guid = str_replace('-', 's', $guid);
+                $guid = preg_replace('/[^A-Za-z0-9\-]/', 's', $guid);
+                $path = $guid;
             }else{
                 $path = Yii::$app->user->getGuid();
             }
@@ -56,7 +60,11 @@ class BrowseController extends BaseController
             $className = $space::className();
 
             if(strcmp($className,'humhub\modules\space\models\Space') == 0){
-                $path = $space->guid;
+                $guid = strtolower($space->getDisplayName());
+                $guid = str_replace(' ', 's', $guid);
+                $guid = str_replace('-', 's', $guid);
+                $guid = preg_replace('/[^A-Za-z0-9\-]/', 's', $guid);
+                $path = $guid;
             }else{
                 $path = Yii::$app->user->getGuid();
             }
@@ -153,16 +161,17 @@ class BrowseController extends BaseController
 
         $this->delete($this->globusRoot,$selectedItems[0],"88798b42-41da-11ea-9712-021304b0cca7");
 
-        if (empty($path) == TRUE){
-            $path = Yii::$app->user->getGuid();
-        }else{
-            if(strcmp($path[0],"/")==0){
-                $path = substr($path,1);
-            }
-        }
+        $space = $this->contentContainer;
+        $className = $space::className();
 
-        $username = Yii::$app->user->identity->username;
-        $url = Url::toRoute('/u/'.$username.'/globusfiles/browse/');
+        if(strcmp($className,'humhub\modules\space\models\Space') == 0){
+            $url = Url::toRoute('/s/'.$space->getDisplayName().'/globusfiles/browse/');
+
+        }else{
+            $username = Yii::$app->user->identity->username;
+            $url = Url::toRoute('/u/'.$username.'/globusfiles/browse/');
+
+        }
 
         $this->redirect($url);
 

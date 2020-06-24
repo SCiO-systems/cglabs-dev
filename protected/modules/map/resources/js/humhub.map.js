@@ -213,7 +213,6 @@ humhub.module('globusfiles', function (module, require, $) {
                 }).finally(function () {
                     item.loader(false);
                 });
-
             }
         });
     };

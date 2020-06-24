@@ -7,7 +7,7 @@ use humhub\widgets\Button;
 
 /* @var $contentContainer humhub\components\View */
 
-$bundle = \humhub\modules\jupyter\assets\JupyterAsset::register($this);
+$bundle = \humhub\modules\jupyter\assets\MapAsset::register($this);
 
 $this->registerJsConfig('jupyter', [
     'text' => [
@@ -45,16 +45,23 @@ $className = $space::className();
 if(strcmp($className,'humhub\modules\space\models\Space') == 0){
     $sguid = $space->guid;
     $spaceName = strtolower($space->getDisplayName());
+    $spaceName = str_replace(' ', 's', $spaceName);
+    $spaceName = str_replace('-', 's', $spaceName);
+    $spaceName = preg_replace('/[^A-Za-z0-9\-]/', 's', $spaceName);
+    $username = $authClient->getUserAttributes()['preferred_username'];
+    $username_pieces = explode("@",$username);
     $url = Url::toRoute('/s/'.$spaceName.'/jupyter/browse/jupyter');
+    $link = 'https://labs.scio.systems:8000/hub/spawn/'.$username_pieces[0].'/'.$spaceName;
 }else{
-    $sguid = '';
+    $username = $authClient->getUserAttributes()['preferred_username'];
+    $username_pieces = explode("@",$username);
+    $sguid = $guid;
     $url = Url::toRoute('/u/'.$username.'/jupyter/browse/jupyter');
+    $link = 'https://labs.scio.systems:8000/user/'.$username_pieces[0].'/lab?guid='.$guid.'&sguid='.$sguid;
 }
 
-$username = $authClient->getUserAttributes()['preferred_username'];
-$username_pieces = explode("@",$username);
 
-$link = 'https://labs.scio.systems:8000/user/'.$username_pieces[0].'/lab?guid='.$guid.'&sguid='.$sguid;
+
 //$link = 'https://labs.scio.systems:8000/user/'.$username_pieces[0].'/lab?guid='.$guid;
 
 

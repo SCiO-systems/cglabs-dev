@@ -5,7 +5,7 @@
  * @license https://www.humhub.com/licences
  */
 
-namespace humhub\modules\jupyter;
+namespace humhub\modules\map;
 
 use Yii;
 use humhub\modules\space\models\Space;
@@ -55,16 +55,16 @@ class Module extends ContentContainerModule
      */
     public function getContentContainerName(ContentContainerActiveRecord $container)
     {
-        return 'Jupyter Lab';
+        return 'Geospatial Exploration';
     }
 
     // Can be used to define a specific description text for different container types
     public function getContentContainerDescription(ContentContainerActiveRecord $container)
     {
         if ($container instanceof Space) {
-            return 'Jupyter Space';
+            return 'Map Space';
         } elseif ($container instanceof User) {
-            return 'Jupyter User';
+            return 'Map User';
         }
     }
 
