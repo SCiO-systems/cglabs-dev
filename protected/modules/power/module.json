@@ -1,0 +1,10 @@
+{
+    "id": "power",
+    "name": "Weather Data",
+    "description": "",
+    "keywords": ["weather", "analytics", "share"],
+    "version": "0.3",
+    "humhub": {
+        "minVersion": "1.2.2"
+    }
+}

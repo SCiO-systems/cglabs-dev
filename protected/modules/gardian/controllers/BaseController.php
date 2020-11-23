@@ -35,7 +35,7 @@ abstract class BaseController extends ContentContainerController
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => array('email' => 'sotiris@scio.systems','password' => 'G)]qDYY9d{dZK[Fa','clientId' => 'lIzdujOxJyohwleZvsGSJWoCEw9pQBxQ'),
+            CURLOPT_POSTFIELDS => array('email' => 'info@scio.systems','password' => 'PbMQfDkgEs27Qvzs','clientId' => 'lIzdujOxJyohwleZvsGSJWoCEw9pQBxQ'),
             CURLOPT_HTTPHEADER => array(
                 "Content-Type: multipart/form-data"
             ),
